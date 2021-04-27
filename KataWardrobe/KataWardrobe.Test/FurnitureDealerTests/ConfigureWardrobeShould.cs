@@ -17,6 +17,16 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         }
 
         [Fact]
+        public void Receive_non_null_elements_collection()
+        {
+            List<WardrobeElement> elements = null;
+
+            Action action = () => _sut.ConfigureWardrobe(elements);
+
+            action.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
         public void Receive_non_empty_elements_collection()
         {
             var elements = new List<WardrobeElement>();
@@ -26,22 +36,10 @@ namespace KataWardrobe.Test.FurnitureDealerTests
             action.Should().Throw<ArgumentNullException>();
         }
 
-        [Theory]
-        [InlineData(new uint[] { 0 })]
-        [InlineData(new uint[] { 0, 1 })]
-        [InlineData(new uint[] { 10, 0, 150 })]
-        [InlineData(new uint[] { 0, 0, 100, 500 })]
-        public void Receive_valid_elements_collection(uint[] sizes)
-        {
-            Action action = () => WardrobeElement.ConvertFromSizes(sizes);
-
-            action.Should().Throw<ArgumentException>();
-        }
-
         [Fact]
         public void Return_elements_combinations()
         {
-            var elements = new List<WardrobeElement> { new WardrobeElement(size:10) };
+            var elements = new List<WardrobeElement> { new WardrobeElement(size: 10) };
 
             var result = _sut.ConfigureWardrobe(elements);
 
