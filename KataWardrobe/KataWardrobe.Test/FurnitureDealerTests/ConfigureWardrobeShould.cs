@@ -33,17 +33,15 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         [InlineData(new int[] { -2, 0, 100, 500 })]
         public void Receive_valid_elements_collection(int[] sizes)
         {
-            var elements = WardrobeElement.ConvertFromSizes(sizes);
-
-            Action action = () => _sut.ConfigureWardrobe(elements);
+            Action action = () => WardrobeElement.ConvertFromSizes(sizes);
 
             action.Should().Throw<ArgumentException>();
         }
 
         [Fact]
-        public void Return_elements_combinations() 
+        public void Return_elements_combinations()
         {
-            var elements = new List<WardrobeElement> { new WardrobeElement { Size = 10 } };
+            var elements = new List<WardrobeElement> { new WardrobeElement(size:10) };
 
             var result = _sut.ConfigureWardrobe(elements);
 
@@ -54,7 +52,7 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         [InlineData(new int[] { 251 })]
         [InlineData(new int[] { 300, 450 })]
         [InlineData(new int[] { 1000, 255, 5000 })]
-        public void Return_empty_matches_when_unfitting_elements(int[] sizes) 
+        public void Return_empty_matches_when_unfitting_elements(int[] sizes)
         {
             var elements = WardrobeElement.ConvertFromSizes(sizes);
 
@@ -67,13 +65,20 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         [InlineData(new int[] { 100 })]
         [InlineData(new int[] { 250, 450 })]
         [InlineData(new int[] { 10, 500, 5000 })]
-        public void Return_one_match_when_only_one_element_fits(int[] sizes) 
+        public void Return_one_match_when_only_one_element_fits(int[] sizes)
         {
             var elements = WardrobeElement.ConvertFromSizes(sizes);
 
             var result = _sut.ConfigureWardrobe(elements);
 
             result.SelectMany(r => r).Count().Should().Be(1);
+        }
+
+        [Fact]
+        public void Return_valid_combinations_when_more_than_one_fits() 
+        {
+            var sizes = new int[] { 100, 150 };
+            var elements = WardrobeElement.ConvertFromSizes(sizes);
         }
 
     }

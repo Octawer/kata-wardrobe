@@ -1,4 +1,5 @@
-﻿using KataWardrobe.Helpers;
+﻿using KataWardrobe.Core.Constants;
+using KataWardrobe.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,31 +8,27 @@ namespace KataWardrobe.Core.Domain
 {
     public class FurnitureDealer
     {
-        public FurnitureDealer()
-        {
-        }
+        public FurnitureDealer() { }
 
         public bool IsWardrobeFittingWall(List<WardrobeElement> elements)
         {
             if (elements.IsNullOrEmpty())
                 throw new ArgumentNullException(nameof(WardrobeElement));
 
-            if (!elements.All(elem => elem.HasValidSize))
-                throw new ArgumentException("One or more wardrobe elements have invalid size defined");
+            bool atLeastOneFits = elements.Any(elem => elem.FitsWall);
 
-            int totalElementsSize = elements.Sum(elem => elem.Size);
-
-            return totalElementsSize < 250;
+            return atLeastOneFits;
         }
 
         public List<List<WardrobeElement>> ConfigureWardrobe(List<WardrobeElement> elements)
         {
             var fittingElements = new List<List<WardrobeElement>>();
-            if (IsWardrobeFittingWall(elements))
+            if (!IsWardrobeFittingWall(elements))
             {
-                fittingElements.Add(elements);
+                return fittingElements;
             }
 
+            fittingElements.Add(new List<WardrobeElement> { elements.First(e => e.FitsWall) });
             return fittingElements;
         }
     }
