@@ -7,19 +7,18 @@ namespace KataWardrobe.Core.Domain
 {
     public class WardrobeElement
     {
-        public int Size { get; set; }
-        public bool HasValidSize => Size > 0;
+        public uint Size { get; set; }
         public bool FitsWall => Size <= FurnitureConstants.WARDROBE_WALL_SIZE;
 
-        public WardrobeElement(int size)
+        public WardrobeElement(uint size)
         {
-            Size = size;
+            if (size == 0)
+                throw new ArgumentException($"Error: Size {size} - Wardrobe element can only have positive, non-zero sizes");
 
-            if (!HasValidSize)
-                throw new ArgumentException($"Error: Size {size} - Wardrobe element can only have positive sizes");
+            Size = size;
         }
 
-        public static List<WardrobeElement> ConvertFromSizes(int[] sizes)
+        public static List<WardrobeElement> ConvertFromSizes(uint[] sizes)
         {
             return sizes.Select(size => new WardrobeElement(size)).ToList();
         }

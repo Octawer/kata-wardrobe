@@ -7,14 +7,10 @@ namespace KataWardrobe.Test.WardrobeElementTests
 {
     public class WardrobeElementShould
     {
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-1)]
-        [InlineData(-25)]
-        [InlineData(int.MinValue)]
-        public void Throw_argument_exception_when_built_with_invalid_size(int size) 
+        [Fact]
+        public void Throw_argument_exception_when_built_with_zero_size() 
         {
-            Action action = () => new WardrobeElement(size);
+            Action action = () => new WardrobeElement(0);
 
             action.Should().Throw<ArgumentException>();
         }
@@ -22,12 +18,12 @@ namespace KataWardrobe.Test.WardrobeElementTests
         [Theory]
         [InlineData(1)]
         [InlineData(25)]
-        [InlineData(int.MaxValue)]
-        public void Have_valid_size_when_built_with_positive_size(int size)
+        [InlineData(uint.MaxValue)]
+        public void Not_throw_argument_exception_when_built_with_positive_size(uint size)
         {
-            var element = new WardrobeElement(size);
+            Action action = () => new WardrobeElement(size);
 
-            element.HasValidSize.Should().BeTrue();
+            action.Should().NotThrow<Exception>();
         }
     }
 }

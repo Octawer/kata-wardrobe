@@ -27,11 +27,11 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         }
 
         [Theory]
-        [InlineData(new int[] { 0 })]
-        [InlineData(new int[] { 0, 1 })]
-        [InlineData(new int[] { 10, -5, 150 })]
-        [InlineData(new int[] { -2, 0, 100, 500 })]
-        public void Receive_valid_elements_collection(int[] sizes)
+        [InlineData(new uint[] { 0 })]
+        [InlineData(new uint[] { 0, 1 })]
+        [InlineData(new uint[] { 10, 0, 150 })]
+        [InlineData(new uint[] { 0, 0, 100, 500 })]
+        public void Receive_valid_elements_collection(uint[] sizes)
         {
             Action action = () => WardrobeElement.ConvertFromSizes(sizes);
 
@@ -49,10 +49,10 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         }
 
         [Theory]
-        [InlineData(new int[] { 251 })]
-        [InlineData(new int[] { 300, 450 })]
-        [InlineData(new int[] { 1000, 255, 5000 })]
-        public void Return_empty_matches_when_unfitting_elements(int[] sizes)
+        [InlineData(new uint[] { 251 })]
+        [InlineData(new uint[] { 300, 450 })]
+        [InlineData(new uint[] { 1000, 255, 5000 })]
+        public void Return_empty_matches_when_unfitting_elements(uint[] sizes)
         {
             var elements = WardrobeElement.ConvertFromSizes(sizes);
 
@@ -62,10 +62,10 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         }
 
         [Theory]
-        [InlineData(new int[] { 100 })]
-        [InlineData(new int[] { 250, 450 })]
-        [InlineData(new int[] { 10, 500, 5000 })]
-        public void Return_one_match_when_only_one_element_fits(int[] sizes)
+        [InlineData(new uint[] { 100 })]
+        [InlineData(new uint[] { 250, 450 })]
+        [InlineData(new uint[] { 10, 500, 5000 })]
+        public void Return_one_match_when_only_one_element_fits(uint[] sizes)
         {
             var elements = WardrobeElement.ConvertFromSizes(sizes);
 
@@ -77,7 +77,7 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         [Fact]
         public void Return_valid_combinations_when_more_than_one_fits() 
         {
-            var sizes = new int[] { 100, 150 };
+            var sizes = new uint[] { 100, 150 };
             var elements = WardrobeElement.ConvertFromSizes(sizes);
         }
 
