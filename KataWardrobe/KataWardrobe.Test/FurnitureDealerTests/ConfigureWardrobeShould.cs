@@ -63,14 +63,6 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         }
 
         [Fact]
-        // is 50, 75, 100 the same as 100, 75, 50, or are they 2 different combinations ? 
-        // We consider them different as different order in wardrobe modules will produce a different "wardrobe" appearance
-        public void Ensure_different_ordered_elements_is_a_different_combination() 
-        {
-            throw new NotImplementedException();
-        }
-
-        [Fact]
         public void Return_valid_combinations_when_more_than_one_fits() 
         {
             var sizes = new uint[] { 100, 150 };
