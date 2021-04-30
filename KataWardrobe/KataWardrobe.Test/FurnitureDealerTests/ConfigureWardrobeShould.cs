@@ -36,16 +36,6 @@ namespace KataWardrobe.Test.FurnitureDealerTests
             action.Should().Throw<ArgumentNullException>();
         }
 
-        [Fact]
-        public void Return_elements_combinations()
-        {
-            var elements = new List<WardrobeElement> { new WardrobeElement(size: 10) };
-
-            var result = _sut.ConfigureWardrobe(elements);
-
-            result.GetType().Should().Be(typeof(List<List<WardrobeElement>>));
-        }
-
         [Theory]
         [InlineData(new uint[] { 251 })]
         [InlineData(new uint[] { 300, 450 })]
@@ -54,7 +44,7 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         {
             var elements = WardrobeElement.ConvertFromSizes(sizes);
 
-            List<List<WardrobeElement>> result = _sut.ConfigureWardrobe(elements);
+            var result = _sut.ConfigureWardrobe(elements);
 
             result.Should().BeEmpty();
         }
@@ -73,10 +63,28 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         }
 
         [Fact]
+        // is 50, 75, 100 the same as 100, 75, 50, or are they 2 different combinations ? 
+        // We consider them different as different order in wardrobe modules will produce a different "wardrobe" appearance
+        public void Ensure_different_ordered_elements_is_a_different_combination() 
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
         public void Return_valid_combinations_when_more_than_one_fits() 
         {
             var sizes = new uint[] { 100, 150 };
             var elements = WardrobeElement.ConvertFromSizes(sizes);
+
+            var result = _sut.ConfigureWardrobe(elements);
+
+            var expectedCombinations = new List<List<WardrobeElement>>();
+            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new uint[] { 100 }));
+            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new uint[] { 150 }));
+            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new uint[] { 100, 150 }));
+            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new uint[] { 150, 150 }));
+
+            result.Should().BeEquivalentTo(expectedCombinations);
         }
 
     }
