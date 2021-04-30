@@ -13,7 +13,7 @@
 - get rid of the "validate method" (IsWardrobeFittingWall) (no needed at all, or at least not needed to be public)
 - what to use as the return type of the Configure Wardrobe ? - maybe sth better than "List of Lists ..." ???
 - Write a function that returns all combinations of wardrobe elements that exactly fill the wall.
-- Write a test for different order combinations
+- Write a test for different order combinations ?
 	- is 50, 75, 100 the same as 100, 75, 50, or are they 2 different combinations ? lets consider them same one, as the elements are the same
 
 

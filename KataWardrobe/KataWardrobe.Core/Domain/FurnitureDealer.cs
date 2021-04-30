@@ -10,26 +10,17 @@ namespace KataWardrobe.Core.Domain
     {
         public FurnitureDealer() { }
 
-        public HashSet<List<WardrobeElement>> ConfigureWardrobe(List<WardrobeElement> elements)
+        public List<IEnumerable<WardrobeElement>> ConfigureWardrobe(List<WardrobeElement> elements)
         {
-            var fittingElements = new HashSet<List<WardrobeElement>>();
             if (!IsAnyFittingWall(elements))
             {
-                return fittingElements;
+                return new List<IEnumerable<WardrobeElement>>();
             }
 
-            if (AreAllFittingWall(elements))
-            {
-                fittingElements.Add(elements);
-                var individualCombinations = elements.Select(elem => new List<WardrobeElement> { elem });
-                foreach (var comb in individualCombinations)
-                {
-                    fittingElements.Add(comb);
-                }
-                return fittingElements;
-            }
+            var fittingElements = elements
+                .PowerSet()
+                .Where(subset => AreAllFittingWall(subset)).ToList();
 
-            fittingElements.Add(new List<WardrobeElement> { elements.First(e => e.FitsWall) });
             return fittingElements;
         }
 
@@ -43,28 +34,18 @@ namespace KataWardrobe.Core.Domain
             return atLeastOneFitting;
         }
 
-        private static bool AreAllFittingWall(List<WardrobeElement> elements)
+        private static bool AreAllFittingWall(IEnumerable<WardrobeElement> elements)
         {
-            if (elements.IsNullOrEmpty())
+            if (elements is null)
                 throw new ArgumentNullException(nameof(WardrobeElement));
+
+            // we exclude empty subsets
+            if (!elements.Any())
+                return false;
 
             bool allFitting = elements.Sum(elem => elem.Size) <= FurnitureConstants.WARDROBE_WALL_SIZE;
 
             return allFitting;
-        }
-
-        // {50, 75, 100}
-        // 0 -> "000" -> {50, 75, 100} -> {0,0,0} -> {}
-        // 1 -> "001" -> {50, 75, 100} -> {0,0,100} -> {100}
-        // 2 -> "010" -> {50, 75, 100} -> {0,75,0} -> {75}
-        // 3 -> "011" -> {50, 75, 100} -> {0,75,100} -> {75, 100}
-        // 4 -> "100" -> {50, 75, 100} -> {50,0,0} -> {50}
-        // 5 -> "101" -> {50, 75, 100} -> {50,0,100} -> {50, 100}
-        // 6 -> "110" -> {50, 75, 100} -> {50,75,0} -> {50, 75}
-        // 7 -> "111" -> {50, 75, 100} -> {50,75,100} -> {50, 75, 100}
-        private static HashSet<List<int>> GetAllCombinations(int[] sizes) 
-        {
-            return sizes.PowerSet();
         }
     }
 }

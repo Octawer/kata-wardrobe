@@ -28,16 +28,16 @@ namespace KataWardrobe.Helpers
         /// <typeparam name="T">source collection type</typeparam>
         /// <param name="source">source collection</param>
         /// <returns>All the posible subsets of the given set</returns>
-        public static HashSet<List<T>> PowerSet<T>(this T[] source)
+        public static HashSet<IEnumerable<T>> PowerSet<T>(this IEnumerable<T> source)
         {
             if (source is null)
             {
                 throw new ArgumentNullException(nameof(source));
             }
 
-            var powerSet = new HashSet<List<T>>();
+            var powerSet = new HashSet<IEnumerable<T>>();
 
-            int maskLenght = source.Length;
+            int maskLenght = source.Count();
             var powerSetCount = Math.Pow(2, maskLenght);
             for (int powerSetIndex = 0; powerSetIndex < powerSetCount; powerSetIndex++)
             {
@@ -49,7 +49,7 @@ namespace KataWardrobe.Helpers
                     if (!shouldIncludeAtMaskPosition)
                         continue;
 
-                    var maskPositionElement = source[maskPosition];
+                    var maskPositionElement = source.ElementAt(maskPosition);
                     subset.Add(maskPositionElement);
                 }
                 powerSet.Add(subset);

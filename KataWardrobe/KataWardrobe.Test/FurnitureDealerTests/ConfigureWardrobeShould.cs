@@ -74,7 +74,6 @@ namespace KataWardrobe.Test.FurnitureDealerTests
             expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new uint[] { 100 }));
             expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new uint[] { 150 }));
             expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new uint[] { 100, 150 }));
-            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new uint[] { 150, 150 }));
 
             result.Should().BeEquivalentTo(expectedCombinations);
         }
