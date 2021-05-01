@@ -17,9 +17,7 @@ namespace KataWardrobe.Core.Domain
                 return new List<IEnumerable<WardrobeElement>>();
             }
 
-            var fittingElements = elements
-                .PowerSet()
-                .Where(subset => AreAllFittingWall(subset)).ToList();
+            var fittingElements = elements.PowerSet().Where(subset => AreAllFittingWall(subset)).ToList();
 
             return fittingElements;
         }
