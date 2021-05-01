@@ -1,4 +1,5 @@
 ﻿using KataWardrobe.Core.Constants;
+using KataWardrobe.Core.Domain.Models;
 using KataWardrobe.Helpers;
 using System;
 using System.Collections.Generic;

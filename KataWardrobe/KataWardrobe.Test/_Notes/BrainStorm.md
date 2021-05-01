@@ -9,9 +9,9 @@
 - Or maybe even better use int as type (and check for zero ?), as "PositiveInteger" semantically includes zero (and we just don't want 0 for our domain specific problem ...)
 - wardrobe elements are available only in the required sizes: 50, 75, 100, 120cm
 - wardrobe elements have fixed prices depending on their size
-- so, should the ctor receive the size as parameter ? or should they be subclasses of a base class with fixed sizes / prices ?
-	- let´s go with the latter, since we are not letting the caller input but a few sizes ...
-- let's explore having an enum passed to the ctor ...
+- so, should the ctor receive the size as parameter (we will only allow a certain fixed sizes...) ? or should they be subclasses of a base class with fixed sizes / prices ?
+	- let's explore having an enum passed to the ctor ...
+	- let´s go now with the inheritance approach and factory method
 
 ## Furniture Dealer
 - get rid of the "validate method" (IsWardrobeFittingWall) (no needed at all, or at least not needed to be public)

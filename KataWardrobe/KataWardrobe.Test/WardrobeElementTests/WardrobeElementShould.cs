@@ -8,10 +8,17 @@ namespace KataWardrobe.Test.WardrobeElementTests
 {
     public class WardrobeElementShould
     {
+        private readonly WardrobeElementFactory _factory;
+
+        public WardrobeElementShould()
+        {
+            _factory = new WardrobeElementFactory();
+        }
+
         [Fact]
         public void Throw_argument_exception_when_built_with_zero_size() 
         {
-            Action action = () => new WardrobeElement(0);
+            Action action = () => _factory.Build(0);
 
             action.Should().Throw<ArgumentException>();
         }
@@ -23,7 +30,7 @@ namespace KataWardrobe.Test.WardrobeElementTests
         [InlineData(WardrobeElementSize.XL)]
         public void Only_be_available_in_fixed_sizes(WardrobeElementSize size) 
         {
-            var element = new WardrobeElement(size);
+            var element = _factory.Build(size);
 
             element.Size.Should().Be((int)size);
         }
@@ -35,7 +42,7 @@ namespace KataWardrobe.Test.WardrobeElementTests
         [InlineData(550)]
         public void Throw_exception_if_not_allowed_size(int size) 
         {
-            Action action = () => new WardrobeElement((WardrobeElementSize)size);
+            Action action = () => _factory.Build((WardrobeElementSize)size);
 
             action.Should().Throw<Exception>();
         }
@@ -47,7 +54,7 @@ namespace KataWardrobe.Test.WardrobeElementTests
         [InlineData(120, 111)]
         public void Have_fixed_price_dependant_on_its_size(int size, int price) 
         {
-            var element = new WardrobeElement((WardrobeElementSize)size);
+            var element = _factory.Build((WardrobeElementSize)size);
 
             element.Price.Should().Be(price);
         }

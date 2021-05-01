@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using KataWardrobe.Core.Domain;
+using KataWardrobe.Core.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace KataWardrobe.Test.FurnitureDealerTests
     public class ConfigureWardrobeShould
     {
         private readonly FurnitureDealer _sut;
+        private readonly WardrobeElementFactory _factory;
 
         public ConfigureWardrobeShould()
         {
             _sut = new FurnitureDealer();
+            _factory = new WardrobeElementFactory();
         }
 
         [Fact]
@@ -43,7 +46,7 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         [InlineData(new int[] { 120 })]
         public void Return_one_match_when_only_one_element_fits(int[] sizes)
         {
-            var elements = WardrobeElement.ConvertFromSizes(sizes);
+            var elements = _factory.ConvertFromSizes(sizes);
 
             var result = _sut.ConfigureWardrobe(elements);
 
@@ -54,23 +57,23 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         public void Return_valid_combinations_that_fits_the_wall() 
         {
             var sizes = new int[] { 50, 75, 100, 120 };
-            var elements = WardrobeElement.ConvertFromSizes(sizes);
+            var elements = _factory.ConvertFromSizes(sizes);
 
             var result = _sut.ConfigureWardrobe(elements);
 
             var expectedCombinations = new List<List<WardrobeElement>>();
-            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new int[] { 50 }));
-            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new int[] { 75 }));
-            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new int[] { 100 }));
-            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new int[] { 120 }));
-            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new int[] { 50, 75 }));
-            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new int[] { 50, 100 }));
-            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new int[] { 50, 120 }));
-            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new int[] { 75, 100 }));
-            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new int[] { 75, 120 }));
-            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new int[] { 100, 120 }));
-            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new int[] { 50, 75, 100 }));
-            expectedCombinations.Add(WardrobeElement.ConvertFromSizes(new int[] { 50, 75, 120 }));
+            expectedCombinations.Add(_factory.ConvertFromSizes(new int[] { 50 }));
+            expectedCombinations.Add(_factory.ConvertFromSizes(new int[] { 75 }));
+            expectedCombinations.Add(_factory.ConvertFromSizes(new int[] { 100 }));
+            expectedCombinations.Add(_factory.ConvertFromSizes(new int[] { 120 }));
+            expectedCombinations.Add(_factory.ConvertFromSizes(new int[] { 50, 75 }));
+            expectedCombinations.Add(_factory.ConvertFromSizes(new int[] { 50, 100 }));
+            expectedCombinations.Add(_factory.ConvertFromSizes(new int[] { 50, 120 }));
+            expectedCombinations.Add(_factory.ConvertFromSizes(new int[] { 75, 100 }));
+            expectedCombinations.Add(_factory.ConvertFromSizes(new int[] { 75, 120 }));
+            expectedCombinations.Add(_factory.ConvertFromSizes(new int[] { 100, 120 }));
+            expectedCombinations.Add(_factory.ConvertFromSizes(new int[] { 50, 75, 100 }));
+            expectedCombinations.Add(_factory.ConvertFromSizes(new int[] { 50, 75, 120 }));
 
             result.Should().BeEquivalentTo(expectedCombinations);
         }
