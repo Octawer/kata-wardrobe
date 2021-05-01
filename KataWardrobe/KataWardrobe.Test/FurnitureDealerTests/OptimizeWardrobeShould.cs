@@ -41,11 +41,11 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         public void Return_the_cheapest_combination_of_elements_that_occupy_the_most_of_wall()
         {
             var sizes = new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.L, WardrobeElementSize.XL };
-            var elements = WardrobeElementFactory.Build(sizes);
+            var elements = WardrobeFactory.Build(sizes);
 
             var result = _sut.OptimizeWardrobe(elements);
 
-            var optimumCombination = WardrobeElementFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.XL });
+            var optimumCombination = WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.XL });
             result.Should().BeEquivalentTo(optimumCombination);
         }
     }

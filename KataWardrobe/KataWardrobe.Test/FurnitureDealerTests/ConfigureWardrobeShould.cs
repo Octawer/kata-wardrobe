@@ -45,7 +45,7 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         [InlineData(new WardrobeElementSize[] { WardrobeElementSize.XL })]
         public void Return_one_match_when_only_one_element_fits(WardrobeElementSize[] sizes)
         {
-            var elements = WardrobeElementFactory.Build(sizes);
+            var elements = WardrobeFactory.Build(sizes);
 
             var result = _sut.ConfigureWardrobe(elements);
 
@@ -56,23 +56,23 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         public void Return_valid_combinations_that_fits_the_wall() 
         {
             var sizes = new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.L, WardrobeElementSize.XL };
-            var elements = WardrobeElementFactory.Build(sizes);
+            var elements = WardrobeFactory.Build(sizes);
 
             var result = _sut.ConfigureWardrobe(elements);
 
             var expectedCombinations = new List<List<WardrobeElement>>();
-            expectedCombinations.Add(WardrobeElementFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S }));
-            expectedCombinations.Add(WardrobeElementFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.M }));
-            expectedCombinations.Add(WardrobeElementFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.L }));
-            expectedCombinations.Add(WardrobeElementFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.XL }));
-            expectedCombinations.Add(WardrobeElementFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M }));
-            expectedCombinations.Add(WardrobeElementFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.L }));
-            expectedCombinations.Add(WardrobeElementFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.XL }));
-            expectedCombinations.Add(WardrobeElementFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.M, WardrobeElementSize.L }));
-            expectedCombinations.Add(WardrobeElementFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.M, WardrobeElementSize.XL }));
-            expectedCombinations.Add(WardrobeElementFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.L, WardrobeElementSize.XL }));
-            expectedCombinations.Add(WardrobeElementFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.L }));
-            expectedCombinations.Add(WardrobeElementFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.XL }));
+            expectedCombinations.Add(WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S }));
+            expectedCombinations.Add(WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.M }));
+            expectedCombinations.Add(WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.L }));
+            expectedCombinations.Add(WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.XL }));
+            expectedCombinations.Add(WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M }));
+            expectedCombinations.Add(WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.L }));
+            expectedCombinations.Add(WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.XL }));
+            expectedCombinations.Add(WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.M, WardrobeElementSize.L }));
+            expectedCombinations.Add(WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.M, WardrobeElementSize.XL }));
+            expectedCombinations.Add(WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.L, WardrobeElementSize.XL }));
+            expectedCombinations.Add(WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.L }));
+            expectedCombinations.Add(WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.XL }));
 
             result.Should().BeEquivalentTo(expectedCombinations);
         }

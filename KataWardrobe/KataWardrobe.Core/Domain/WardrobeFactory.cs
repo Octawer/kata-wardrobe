@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace KataWardrobe.Core.Domain
 {
-    public class WardrobeElementFactory 
+    public class WardrobeFactory 
     {
         private static readonly Dictionary<WardrobeElementSize, WardrobeElement> _prices = new Dictionary<WardrobeElementSize, WardrobeElement>
         {
