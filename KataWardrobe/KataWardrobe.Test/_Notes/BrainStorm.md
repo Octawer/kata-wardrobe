@@ -6,11 +6,12 @@
 - Get rid of the default ctor ? (enforce valid init with size)
 - Use exception to enforce positives
 - Maybe enforce positive number by using a class, instead of an int ?
-- Or maybe even better use uint as type (and check for zero ?), as "PositiveInteger" semantically includes zero (and we just don't want 0 for our domain specific problem ...)
+- Or maybe even better use int as type (and check for zero ?), as "PositiveInteger" semantically includes zero (and we just don't want 0 for our domain specific problem ...)
 - wardrobe elements are available only in the required sizes: 50, 75, 100, 120cm
 - wardrobe elements have fixed prices depending on their size
 - so, should the ctor receive the size as parameter ? or should they be subclasses of a base class with fixed sizes / prices ?
-	- let´s go with the latter
+	- let´s go with the latter, since we are not letting the caller input but a few sizes ...
+- let's explore having an enum passed to the ctor ...
 
 ## Furniture Dealer
 - get rid of the "validate method" (IsWardrobeFittingWall) (no needed at all, or at least not needed to be public)

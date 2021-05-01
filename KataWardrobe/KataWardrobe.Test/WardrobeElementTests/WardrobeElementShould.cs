@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using KataWardrobe.Core.Domain;
+using KataWardrobe.Core.Domain.Enums;
 using System;
 using Xunit;
 
@@ -16,15 +17,15 @@ namespace KataWardrobe.Test.WardrobeElementTests
         }
 
         [Theory]
-        [InlineData(50)]
-        [InlineData(75)]
-        [InlineData(100)]
-        [InlineData(120)]
-        public void Only_be_available_in_fixed_sizes(uint size) 
+        [InlineData(WardrobeElementSize.S)]
+        [InlineData(WardrobeElementSize.M)]
+        [InlineData(WardrobeElementSize.L)]
+        [InlineData(WardrobeElementSize.XL)]
+        public void Only_be_available_in_fixed_sizes(WardrobeElementSize size) 
         {
             var element = new WardrobeElement(size);
 
-            element.Size.Should().Be(size);
+            element.Size.Should().Be((int)size);
         }
 
         [Theory]
@@ -32,21 +33,21 @@ namespace KataWardrobe.Test.WardrobeElementTests
         [InlineData(45)]
         [InlineData(250)]
         [InlineData(550)]
-        public void Throw_exception_if_not_allowed_size(uint size) 
+        public void Throw_exception_if_not_allowed_size(int size) 
         {
-            Action action = () => new WardrobeElement(size);
+            Action action = () => new WardrobeElement((WardrobeElementSize)size);
 
             action.Should().Throw<Exception>();
         }
 
         [Theory]
-        [InlineData(50,59)]
+        [InlineData(50, 59)]
         [InlineData(75, 62)]
         [InlineData(100, 90)]
         [InlineData(120, 111)]
-        public void Have_fixed_price_dependant_on_its_size(uint size, uint price) 
+        public void Have_fixed_price_dependant_on_its_size(int size, int price) 
         {
-            var element = new WardrobeElement(size);
+            var element = new WardrobeElement((WardrobeElementSize)size);
 
             element.Price.Should().Be(price);
         }
