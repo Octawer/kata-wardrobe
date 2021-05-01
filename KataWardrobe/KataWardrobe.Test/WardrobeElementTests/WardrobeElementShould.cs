@@ -38,5 +38,17 @@ namespace KataWardrobe.Test.WardrobeElementTests
 
             action.Should().Throw<Exception>();
         }
+
+        [Theory]
+        [InlineData(50,59)]
+        [InlineData(75, 62)]
+        [InlineData(100, 90)]
+        [InlineData(120, 111)]
+        public void Have_fixed_price_dependant_on_its_size(uint size, uint price) 
+        {
+            var element = new WardrobeElement(size);
+
+            element.Price.Should().Be(price);
+        }
     }
 }
