@@ -16,14 +16,27 @@ namespace KataWardrobe.Test.WardrobeElementTests
         }
 
         [Theory]
-        [InlineData(1)]
-        [InlineData(25)]
-        [InlineData(uint.MaxValue)]
-        public void Not_throw_argument_exception_when_built_with_positive_size(uint size)
+        [InlineData(50)]
+        [InlineData(75)]
+        [InlineData(100)]
+        [InlineData(120)]
+        public void Only_be_available_in_fixed_sizes(uint size) 
+        {
+            var element = new WardrobeElement(size);
+
+            element.Size.Should().Be(size);
+        }
+
+        [Theory]
+        [InlineData(10)]
+        [InlineData(45)]
+        [InlineData(250)]
+        [InlineData(550)]
+        public void Throw_exception_if_not_allowed_size(uint size) 
         {
             Action action = () => new WardrobeElement(size);
 
-            action.Should().NotThrow<Exception>();
+            action.Should().Throw<Exception>();
         }
     }
 }

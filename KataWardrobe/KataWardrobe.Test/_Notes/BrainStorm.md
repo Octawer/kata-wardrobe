@@ -16,8 +16,14 @@
 - Write a test for different order combinations ?
 	- is 50, 75, 100 the same as 100, 75, 50, or are they 2 different combinations ? lets consider them same one, as the elements are the same
 
+- wardrobe elements are available only in the required sizes: 50, 75, 100, 120cm
+- wardrobe elements have fixed prices depending on their size
+- so, should the ctor receive the size as parameter ? or should they be subclasses of a base class with fixed sizes / prices ?
+	- let´s go with the latter
 
 # Helpers / Extensions
 - Write extension to handle power sets (learn about power set algorithm, as well)
 - Write tests for power set
 - Write tests for isNullOrEmpty collection, as well
+
+

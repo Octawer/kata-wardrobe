@@ -15,6 +15,9 @@ namespace KataWardrobe.Core.Domain
             if (size == 0)
                 throw new ArgumentException($"Error: Size {size} - Wardrobe element can only have positive, non-zero sizes");
 
+            if (size != 50 && size != 75 && size != 100 && size != 120)
+                throw new ArgumentException($"Error: allowed sizes are only {50}, {75}, {100}, {120}");
+
             Size = size;
         }
 

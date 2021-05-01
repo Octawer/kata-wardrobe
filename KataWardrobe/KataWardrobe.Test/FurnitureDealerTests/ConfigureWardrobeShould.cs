@@ -37,22 +37,10 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         }
 
         [Theory]
-        [InlineData(new uint[] { 251 })]
-        [InlineData(new uint[] { 300, 450 })]
-        [InlineData(new uint[] { 1000, 255, 5000 })]
-        public void Return_empty_matches_when_unfitting_elements(uint[] sizes)
-        {
-            var elements = WardrobeElement.ConvertFromSizes(sizes);
-
-            var result = _sut.ConfigureWardrobe(elements);
-
-            result.Should().BeEmpty();
-        }
-
-        [Theory]
+        [InlineData(new uint[] { 50 })]
+        [InlineData(new uint[] { 75 })]
         [InlineData(new uint[] { 100 })]
-        [InlineData(new uint[] { 250, 450 })]
-        [InlineData(new uint[] { 10, 500, 5000 })]
+        [InlineData(new uint[] { 120 })]
         public void Return_one_match_when_only_one_element_fits(uint[] sizes)
         {
             var elements = WardrobeElement.ConvertFromSizes(sizes);
