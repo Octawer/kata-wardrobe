@@ -2,9 +2,9 @@
 {
     public enum WardrobeElementSize
     {
-        S = 50,
-        M = 75,
-        L = 100,
-        XL = 120
+        S = 1,
+        M = 2,
+        L = 3,
+        XL = 4
     }
 }

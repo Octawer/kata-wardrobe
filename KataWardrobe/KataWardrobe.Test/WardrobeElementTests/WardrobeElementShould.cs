@@ -8,31 +8,25 @@ namespace KataWardrobe.Test.WardrobeElementTests
 {
     public class WardrobeElementShould
     {
-        private readonly WardrobeElementFactory _factory;
-
-        public WardrobeElementShould()
-        {
-            _factory = new WardrobeElementFactory();
-        }
 
         [Fact]
         public void Throw_argument_exception_when_built_with_zero_size() 
         {
-            Action action = () => _factory.Build(0);
+            Action action = () => WardrobeElementFactory.Build(0);
 
             action.Should().Throw<ArgumentException>();
         }
 
         [Theory]
-        [InlineData(WardrobeElementSize.S)]
-        [InlineData(WardrobeElementSize.M)]
-        [InlineData(WardrobeElementSize.L)]
-        [InlineData(WardrobeElementSize.XL)]
-        public void Only_be_available_in_fixed_sizes(WardrobeElementSize size) 
+        [InlineData(WardrobeElementSize.S, 50)]
+        [InlineData(WardrobeElementSize.M, 75)]
+        [InlineData(WardrobeElementSize.L, 100)]
+        [InlineData(WardrobeElementSize.XL, 120)]
+        public void Only_be_available_in_fixed_sizes(WardrobeElementSize size, int cms) 
         {
-            var element = _factory.Build(size);
+            var element = WardrobeElementFactory.Build(size);
 
-            element.Size.Should().Be((int)size);
+            element.Size.Should().Be(cms);
         }
 
         [Theory]
@@ -42,19 +36,19 @@ namespace KataWardrobe.Test.WardrobeElementTests
         [InlineData(550)]
         public void Throw_exception_if_not_allowed_size(int size) 
         {
-            Action action = () => _factory.Build((WardrobeElementSize)size);
+            Action action = () => WardrobeElementFactory.Build((WardrobeElementSize)size);
 
             action.Should().Throw<Exception>();
         }
 
         [Theory]
-        [InlineData(50, 59)]
-        [InlineData(75, 62)]
-        [InlineData(100, 90)]
-        [InlineData(120, 111)]
-        public void Have_fixed_price_dependant_on_its_size(int size, int price) 
+        [InlineData(WardrobeElementSize.S, 59)]
+        [InlineData(WardrobeElementSize.M, 62)]
+        [InlineData(WardrobeElementSize.L, 90)]
+        [InlineData(WardrobeElementSize.XL, 111)]
+        public void Have_fixed_price_dependant_on_its_size(WardrobeElementSize size, int price) 
         {
-            var element = _factory.Build((WardrobeElementSize)size);
+            var element = WardrobeElementFactory.Build(size);
 
             element.Price.Should().Be(price);
         }
