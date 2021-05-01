@@ -23,6 +23,18 @@ namespace KataWardrobe.Core.Domain
             return fittingElements;
         }
 
+        public List<WardrobeElement> OptimizeWardrobe(List<WardrobeElement> elements)
+        {
+            if (!IsAnyFittingWall(elements))
+            {
+                return new List<WardrobeElement>();
+            }
+
+            var computedSets = ConfigureWardrobe(elements).Select(subset => (Price: subset.Sum(e => e.Price), SpaceOccupied: subset.Sum(e => e.Size), Elements: subset));
+            return computedSets.OrderByDescending(s => s.SpaceOccupied).ThenBy(s => s.Price).FirstOrDefault().Elements.ToList();
+        }
+
+
         private static bool IsAnyFittingWall(List<WardrobeElement> elements)
         {
             if (elements.IsNullOrEmpty())
