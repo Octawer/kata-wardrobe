@@ -38,15 +38,25 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         }
 
         [Fact]
+        public void Receive_elements_collection_with_at_least_one_fit()
+        {
+            var elements = new List<WardrobeElement>();
+
+            Action action = () => _sut.OptimizeWardrobe(elements);
+
+            action.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
         public void Return_the_cheapest_combination_of_elements_that_occupy_the_most_of_wall()
         {
             var sizes = new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.L, WardrobeElementSize.XL };
-            var elements = WardrobeFactory.Build(sizes);
+            var elements = WardrobeFactory.BuildElements(sizes);
 
-            var result = _sut.OptimizeWardrobe(elements);
+            Wardrobe wardrobe = _sut.OptimizeWardrobe(elements);
 
-            var optimumCombination = WardrobeFactory.Build(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.XL });
-            result.Should().BeEquivalentTo(optimumCombination);
+            var expectedWardrobe = WardrobeFactory.BuildWardrobe(new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.XL });
+            wardrobe.Should().BeEquivalentTo(expectedWardrobe);
         }
     }
 }

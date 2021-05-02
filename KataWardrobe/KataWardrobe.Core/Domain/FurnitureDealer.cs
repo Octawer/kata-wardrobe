@@ -11,27 +11,32 @@ namespace KataWardrobe.Core.Domain
     {
         public FurnitureDealer() { }
 
-        public List<IEnumerable<WardrobeElement>> ConfigureWardrobe(List<WardrobeElement> elements)
+        public List<Wardrobe> ConfigureWardrobes(List<WardrobeElement> elements)
         {
             if (!IsAnyFittingWall(elements))
             {
-                return new List<IEnumerable<WardrobeElement>>();
+                return new List<Wardrobe>();
             }
 
-            var fittingElements = elements.PowerSet().Where(subset => AreAllFittingWall(subset)).ToList();
+            var wardrobes = elements.PowerSet()
+                                    .Where(subset => AreAllFittingWall(subset))
+                                    .Select(subset => WardrobeFactory.BuildWardrobe(subset.ToList()))
+                                    .ToList();
 
-            return fittingElements;
+            return wardrobes;
         }
 
-        public List<WardrobeElement> OptimizeWardrobe(List<WardrobeElement> elements)
+        public Wardrobe OptimizeWardrobe(List<WardrobeElement> elements)
         {
             if (!IsAnyFittingWall(elements))
             {
-                return new List<WardrobeElement>();
+                throw new ArgumentNullException("None of the elements fits the wall");
             }
 
-            var computedSets = ConfigureWardrobe(elements).Select(subset => (Price: subset.Sum(e => e.Price), SpaceOccupied: subset.Sum(e => e.Size), Elements: subset));
-            return computedSets.OrderByDescending(s => s.SpaceOccupied).ThenBy(s => s.Price).FirstOrDefault().Elements.ToList();
+            var optimalWardrobe = ConfigureWardrobes(elements).OrderByDescending(wardrobe => wardrobe.Size)
+                                                             .ThenBy(wardrobe => wardrobe.Price)
+                                                             .FirstOrDefault();
+            return optimalWardrobe;
         }
 
 

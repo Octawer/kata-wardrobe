@@ -16,7 +16,7 @@ namespace KataWardrobe.Core.Domain
             { WardrobeElementSize.XL, new ModuleXL() },
         };
 
-        public static WardrobeElement Build(WardrobeElementSize size) 
+        public static WardrobeElement BuildElement(WardrobeElementSize size) 
         {
             if (!Enum.IsDefined(typeof(WardrobeElementSize), size))
                 throw new ArgumentException($"Error: Size {size} - Wardrobe element can only have fixed sizes");
@@ -24,14 +24,19 @@ namespace KataWardrobe.Core.Domain
             return _prices.TryGetValue(size, out var element) ? element : throw new ArgumentException($"Error: module not found for size {size}");
         }
 
-        public static List<WardrobeElement> Build(WardrobeElementSize[] sizes) 
+        public static List<WardrobeElement> BuildElements(WardrobeElementSize[] sizes) 
         {
-            return sizes.Select(size => Build(size)).ToList();
+            return sizes.Select(size => BuildElement(size)).ToList();
         }
 
         public static Wardrobe BuildWardrobe(WardrobeElementSize[] sizes)
         {
-            var elements = Build(sizes);
+            var elements = BuildElements(sizes);
+            return new Wardrobe(elements);
+        }
+
+        public static Wardrobe BuildWardrobe(List<WardrobeElement> elements)
+        {
             return new Wardrobe(elements);
         }
     }
