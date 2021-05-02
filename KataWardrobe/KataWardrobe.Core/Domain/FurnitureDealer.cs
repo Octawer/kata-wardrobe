@@ -34,8 +34,8 @@ namespace KataWardrobe.Core.Domain
             }
 
             var optimalWardrobe = ConfigureWardrobes(elements).OrderByDescending(wardrobe => wardrobe.Size)
-                                                             .ThenBy(wardrobe => wardrobe.Price)
-                                                             .FirstOrDefault();
+                                                              .ThenBy(wardrobe => wardrobe.Price)
+                                                              .FirstOrDefault();
             return optimalWardrobe;
         }
 

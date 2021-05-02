@@ -10,7 +10,7 @@ namespace KataWardrobe.Test.WardrobeElementTests
     {
 
         [Fact]
-        public void Throw_argument_exception_when_built_with_zero_size() 
+        public void Throw_argument_exception_when_built_with_zero_size()
         {
             Action action = () => WardrobeFactory.BuildElement(0);
 
@@ -22,7 +22,7 @@ namespace KataWardrobe.Test.WardrobeElementTests
         [InlineData(WardrobeElementSize.M, 75)]
         [InlineData(WardrobeElementSize.L, 100)]
         [InlineData(WardrobeElementSize.XL, 120)]
-        public void Only_be_available_in_fixed_sizes(WardrobeElementSize size, int cms) 
+        public void Only_be_available_in_fixed_sizes(WardrobeElementSize size, int cms)
         {
             var element = WardrobeFactory.BuildElement(size);
 
@@ -34,7 +34,7 @@ namespace KataWardrobe.Test.WardrobeElementTests
         [InlineData(45)]
         [InlineData(250)]
         [InlineData(550)]
-        public void Throw_exception_if_not_allowed_size(int size) 
+        public void Throw_exception_if_not_allowed_size(int size)
         {
             Action action = () => WardrobeFactory.BuildElement((WardrobeElementSize)size);
 
@@ -46,7 +46,7 @@ namespace KataWardrobe.Test.WardrobeElementTests
         [InlineData(WardrobeElementSize.M, 62)]
         [InlineData(WardrobeElementSize.L, 90)]
         [InlineData(WardrobeElementSize.XL, 111)]
-        public void Have_fixed_price_dependant_on_its_size(WardrobeElementSize size, int price) 
+        public void Have_fixed_price_dependant_on_its_size(WardrobeElementSize size, int price)
         {
             var element = WardrobeFactory.BuildElement(size);
 

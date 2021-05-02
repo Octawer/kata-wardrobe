@@ -54,7 +54,7 @@ namespace KataWardrobe.Test.FurnitureDealerTests
         }
 
         [Fact]
-        public void Return_valid_combinations_that_fits_the_wall() 
+        public void Return_valid_combinations_that_fits_the_wall()
         {
             var sizes = new WardrobeElementSize[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.L, WardrobeElementSize.XL };
             var elements = WardrobeFactory.BuildElements(sizes);
