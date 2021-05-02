@@ -17,6 +17,11 @@
 - Create class that holds list of "modules" or Wardrobe elements, cost and space occupied
 - Test this class
 
+## Factory
+- Build Wardrobe element from size
+- Build Wardrobe elements from sizes
+- Build Wardrobe from sizes
+
 ## Furniture Dealer
 - get rid of the "validate method" (IsWardrobeFittingWall) (no needed at all, or at least not needed to be public)
 - what to use as the return type of the Configure Wardrobe ? - maybe sth better than "List of Lists ..." ???

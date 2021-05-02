@@ -15,8 +15,15 @@ namespace KataWardrobe.Test.WardrobeTests
 
         public WardrobeShould()
         {
-            var elements = WardrobeFactory.Build(new[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.L });
-            _wardrobe = new Wardrobe(elements);
+            _wardrobe = WardrobeFactory.BuildWardrobe(new[] { WardrobeElementSize.S, WardrobeElementSize.M, WardrobeElementSize.L });
+        }
+
+        [Fact]
+        public void Have_a_list_of_elements_that_compose_the_wardrobe()
+        {
+            _wardrobe.Elements.Should().NotBeNull();
+            _wardrobe.Elements.Should().NotBeEmpty();
+            _wardrobe.Elements.GetType().Should().Be(typeof(List<WardrobeElement>));
         }
 
         [Fact]
@@ -29,11 +36,23 @@ namespace KataWardrobe.Test.WardrobeTests
         }
 
         [Fact]
-        public void Have_a_list_of_elements_that_compose_the_wardrobe()
+        public void Not_have_elements_without_size()
         {
-            _wardrobe.Elements.Should().NotBeNull();
-            _wardrobe.Elements.Should().NotBeEmpty();
-            _wardrobe.Elements.GetType().Should().Be(typeof(List<WardrobeElement>));
+            var elements = new List<WardrobeElement> { new ModuleS(), new ModuleM(), new ModuleL(), new ModuleXL() };
+            Action action = () => _wardrobe = new Wardrobe(elements);
+
+            action.Should().NotThrow<Exception>();
+            _wardrobe.Elements.ForEach(e => e.Size.Should().NotBe(0));
+        }
+
+        [Fact]
+        public void Not_have_elements_without_price()
+        {
+            var elements = new List<WardrobeElement> { new ModuleS(), new ModuleM(), new ModuleL(), new ModuleXL() };
+            Action action = () => _wardrobe = new Wardrobe(elements);
+
+            action.Should().NotThrow<Exception>();
+            _wardrobe.Elements.ForEach(e => e.Price.Should().NotBe(0));
         }
 
         [Fact]
@@ -43,9 +62,21 @@ namespace KataWardrobe.Test.WardrobeTests
         }
 
         [Fact]
+        public void Not_have_zero_cost()
+        {
+            _wardrobe.Price.Should().NotBe(0);
+        }
+
+        [Fact]
         public void Have_the_total_size_of_the_elements()
         {
             _wardrobe.Size.Should().Be(_wardrobe.Elements.Sum(e => e.Size));
+        }
+
+        [Fact]
+        public void Not_have_zero_size()
+        {
+            _wardrobe.Size.Should().NotBe(0);
         }
     }
 }

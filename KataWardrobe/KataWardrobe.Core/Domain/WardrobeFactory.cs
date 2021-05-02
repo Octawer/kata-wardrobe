@@ -28,5 +28,11 @@ namespace KataWardrobe.Core.Domain
         {
             return sizes.Select(size => Build(size)).ToList();
         }
+
+        public static Wardrobe BuildWardrobe(WardrobeElementSize[] sizes)
+        {
+            var elements = Build(sizes);
+            return new Wardrobe(elements);
+        }
     }
 }
